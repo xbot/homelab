@@ -7,3 +7,4 @@ Homelab scripts.
 | ---  | ---       | ---                                                          |
 | pve  | backup.sh | Backup PVE configurations to PBS with proxmox-backup-client. |
 | ansible | promtail.yml | Manage Promtail deployment and configuration across homelab hosts. |
+| ansible | caddy.yml | Manage Caddyfile deployment and Cloudflare API token across Caddy hosts. |

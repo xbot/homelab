@@ -1,0 +1,401 @@
+{% raw %}
+rsshub.home {
+    tls internal
+    reverse_proxy nas:1200
+}
+
+alist.home {
+    tls internal
+    reverse_proxy nas:5244
+}
+
+linkding.home {
+    tls internal
+    reverse_proxy linkding:9090
+}
+
+hoarder.home {
+    tls internal
+    reverse_proxy nas:3300
+}
+
+readeck.home {
+    tls internal
+    reverse_proxy nas:8000
+}
+
+clouddrive.home {
+    tls internal
+    reverse_proxy nas:19798
+}
+
+n8n.home {
+    tls internal
+    reverse_proxy pool2:5678
+}
+
+gotify.home {
+    tls internal
+    reverse_proxy pool2:9090
+}
+
+ql.home {
+    tls internal
+    reverse_proxy nas:5700
+}
+
+heimdall.home {
+    tls internal
+    reverse_proxy heimdall:7990
+}
+
+miniflux.home {
+    tls internal
+    reverse_proxy miniflux:8080
+}
+
+kopia.home {
+    tls internal
+    reverse_proxy nas:51515
+}
+
+kopia-local.home {
+    tls internal
+    reverse_proxy nas:51516
+}
+
+bt.home {
+    tls internal
+    reverse_proxy bt:8759
+}
+
+bitwarden.home {
+    tls internal
+    reverse_proxy nas:7777
+}
+
+calibre.home {
+    tls internal
+    reverse_proxy nas:5556
+}
+
+books.home {
+    tls internal
+    reverse_proxy nas:5555
+}
+
+dns.home {
+    tls internal
+    redir / /admin{uri}
+    reverse_proxy dns
+}
+
+emby.home {
+    tls internal
+    reverse_proxy nas:9096
+}
+
+log.home {
+    tls internal
+    reverse_proxy grafana:3000
+}
+
+hass.home {
+    tls internal
+    reverse_proxy hass:8123
+}
+
+nas.home {
+    tls internal
+    reverse_proxy nas
+}
+
+jellyfin.home {
+    tls internal
+    reverse_proxy nas:8096
+}
+
+photoprism.home {
+    tls internal
+    reverse_proxy nas:2342
+}
+
+prowlarr.home {
+    tls internal
+    reverse_proxy nas:9696
+}
+
+portainer.home {
+    tls internal
+    reverse_proxy /api/websocket pool2:9000
+    reverse_proxy pool2:9000
+}
+
+pve.home {
+    tls internal
+    reverse_proxy https://pve:8006 {
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
+}
+
+aio.home {
+    tls internal
+    reverse_proxy https://aio:8006 {
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
+}
+
+pbs.home {
+    tls internal
+    reverse_proxy https://pbs:8007 {
+        transport http {
+            tls_insecure_skip_verify
+        }
+    }
+}
+
+jellyseerr.home {
+    tls internal
+    reverse_proxy nas:5055
+}
+
+radarr.home {
+    tls internal
+    reverse_proxy nas:7878
+}
+
+seafile.home {
+    tls internal
+    reverse_proxy /seafdav nas:8004
+    reverse_proxy nas:8002
+}
+
+sidecar.home {
+    tls internal
+    reverse_proxy sidecar
+}
+
+sonarr.home {
+    tls internal
+    reverse_proxy nas:8989
+}
+
+subfinder.home {
+    tls internal
+    reverse_proxy nas:19035
+}
+
+verysync.home {
+    tls internal
+    reverse_proxy nas:8886
+}
+
+wiki.home {
+    tls internal
+    reverse_proxy nas:9999
+}
+
+*.lab.0x3f.org {
+    tls {
+        dns cloudflare {env.CLOUDFLARE_API_TOKEN}
+    }
+
+    @rsshub host rsshub.lab.0x3f.org
+    handle @rsshub {
+        reverse_proxy nas:1200
+    }
+
+    @alist host alist.lab.0x3f.org
+    handle @alist {
+        reverse_proxy nas:5244
+    }
+
+    @linkding host linkding.lab.0x3f.org
+    handle @linkding {
+        reverse_proxy linkding:9090
+    }
+
+    @hoarder host hoarder.lab.0x3f.org
+    handle @hoarder {
+        reverse_proxy nas:3300
+    }
+
+    @readeck host readeck.lab.0x3f.org
+    handle @readeck {
+        reverse_proxy nas:8000
+    }
+
+    # @n8n host n8n.lab.0x3f.org
+    # handle @n8n {
+    #     reverse_proxy pool2:5678
+    # }
+
+    @gotify host gotify.lab.0x3f.org
+    handle @gotify {
+        reverse_proxy pool2:9090
+    }
+
+    @heimdall host heimdall.lab.0x3f.org
+    handle @heimdall {
+        reverse_proxy heimdall:7990
+    }
+
+    @miniflux host miniflux.lab.0x3f.org
+    handle @miniflux {
+        reverse_proxy miniflux:8080
+    }
+
+    @kopia host kopia.lab.0x3f.org
+    handle @kopia {
+        reverse_proxy nas:51515
+    }
+
+    @kopia-local host kopia-local.lab.0x3f.org
+    handle @kopia-local {
+        reverse_proxy nas:51516
+    }
+
+    @bt host bt.lab.0x3f.org
+    handle @bt {
+        reverse_proxy bt:8759
+    }
+
+    @bitwarden host bitwarden.lab.0x3f.org
+    handle @bitwarden {
+        encode gzip
+        reverse_proxy nas:7777
+    }
+
+    @calibre host calibre.lab.0x3f.org
+    handle @calibre {
+        encode gzip
+        reverse_proxy /content-server/ nas:5555
+        reverse_proxy nas:5556
+    }
+
+    @books host books.lab.0x3f.org
+    handle @books {
+        encode gzip
+        reverse_proxy nas:5555
+    }
+
+    @dns host dns.lab.0x3f.org
+    handle @dns {
+        redir / /admin{uri}
+        reverse_proxy dns
+    }
+
+    @emby host emby.lab.0x3f.org
+    handle @emby {
+        reverse_proxy nas:9096
+    }
+
+    @log host log.lab.0x3f.org
+    handle @log {
+        reverse_proxy grafana:3000
+    }
+
+    @hass host hass.lab.0x3f.org
+    handle @hass {
+        reverse_proxy hass:8123
+    }
+
+    @nas host nas.lab.0x3f.org
+    handle @nas {
+        reverse_proxy nas
+    }
+
+    @jellyfin host jellyfin.lab.0x3f.org
+    handle @jellyfin {
+        reverse_proxy nas:8096
+    }
+
+    @photoprism host photoprism.lab.0x3f.org
+    handle @photoprism {
+        reverse_proxy nas:2342
+    }
+
+    @prowlarr host prowlarr.lab.0x3f.org
+    handle @prowlarr {
+        reverse_proxy nas:9696
+    }
+
+    @portainer host portainer.lab.0x3f.org
+    handle @portainer {
+        reverse_proxy /api/websocket pool2:9000
+        reverse_proxy pool2:9000
+    }
+
+    @pve host pve.lab.0x3f.org
+    handle @pve {
+        reverse_proxy https://pve:8006 {
+            transport http {
+                tls_insecure_skip_verify
+            }
+        }
+    }
+
+    @aio host aio.lab.0x3f.org
+    handle @aio {
+        reverse_proxy https://aio:8006 {
+            transport http {
+                tls_insecure_skip_verify
+            }
+        }
+    }
+
+    @pbs host pbs.lab.0x3f.org
+    handle @pbs {
+        reverse_proxy https://pbs:8007 {
+            transport http {
+                tls_insecure_skip_verify
+            }
+        }
+    }
+
+    @jellyseerr host jellyseerr.lab.0x3f.org
+    handle @jellyseerr {
+        reverse_proxy nas:5055
+    }
+
+    @radarr host radarr.lab.0x3f.org
+    handle @radarr {
+        reverse_proxy nas:7878
+    }
+
+    @seafile host seafile.lab.0x3f.org
+    handle @seafile {
+        reverse_proxy /seafdav nas:8004
+        reverse_proxy nas:8002
+    }
+
+    @sidecar host sidecar.lab.0x3f.org
+    handle @sidecar {
+        reverse_proxy sidecar
+    }
+
+    @sonarr host sonarr.lab.0x3f.org
+    handle @sonarr {
+        reverse_proxy nas:8989
+    }
+
+    @subfinder host subfinder.lab.0x3f.org
+    handle @subfinder {
+        reverse_proxy nas:19035
+    }
+
+    @verysync host verysync.lab.0x3f.org
+    handle @verysync {
+        reverse_proxy nas:8886
+    }
+
+    @wiki host wiki.lab.0x3f.org
+    handle @wiki {
+        reverse_proxy nas:9999
+    }
+}
+{% endraw %}
