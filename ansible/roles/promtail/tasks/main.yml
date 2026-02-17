@@ -1,0 +1,5 @@
+- include_tasks: docker.yml
+  when: inventory_hostname in groups['docker']
+
+- include_tasks: native.yml
+  when: inventory_hostname in groups['native']

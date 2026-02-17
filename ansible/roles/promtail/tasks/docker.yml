@@ -1,0 +1,9 @@
+- name: Deploy Promtail config
+  template:
+    src: promtail-docker.yml.j2
+    dest: "{{ promtail_config_path }}"
+  register: config_result
+
+- name: Restart Promtail container
+  command: docker restart promtail
+  when: config_result.changed

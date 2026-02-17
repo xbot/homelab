@@ -1,0 +1,42 @@
+- name: Check if Grafana apt repo already exists
+  shell: grep -r "apt.grafana.com" /etc/apt/sources.list.d/ 2>/dev/null
+  register: grafana_repo_check
+  changed_when: false
+  failed_when: false
+
+- name: Install dependencies
+  apt:
+    name: [gpg, wget]
+    state: present
+    update_cache: yes
+  when: grafana_repo_check.rc != 0
+
+- name: Add Grafana GPG key
+  shell: wget -qO- https://apt.grafana.com/gpg.key | gpg --dearmor -o /usr/share/keyrings/grafana.gpg
+  args:
+    creates: /usr/share/keyrings/grafana.gpg
+  when: grafana_repo_check.rc != 0
+
+- name: Add Grafana apt repo
+  copy:
+    content: "deb [signed-by=/usr/share/keyrings/grafana.gpg] https://apt.grafana.com stable main\n"
+    dest: /etc/apt/sources.list.d/grafana.list
+  when: grafana_repo_check.rc != 0
+
+- name: Install Promtail
+  apt:
+    name: promtail
+    state: present
+    update_cache: yes
+
+- name: Deploy Promtail config
+  template:
+    src: promtail-native.yml.j2
+    dest: "{{ promtail_config_path }}"
+  notify: Restart Promtail
+
+- name: Enable and start Promtail
+  systemd:
+    name: promtail
+    enabled: yes
+    state: started
