@@ -46,7 +46,7 @@ ql.home {
 
 heimdall.home {
     tls internal
-    reverse_proxy heimdall:7990
+    reverse_proxy pool1:1111
 }
 
 miniflux.home {
@@ -97,7 +97,7 @@ emby.home {
 
 log.home {
     tls internal
-    reverse_proxy grafana:3000
+    reverse_proxy pool1:3000
 }
 
 hass.home {
@@ -241,7 +241,7 @@ wiki.home {
 
     @heimdall host heimdall.lab.0x3f.org
     handle @heimdall {
-        reverse_proxy heimdall:7990
+        reverse_proxy pool1:1111
     }
 
     @miniflux host miniflux.lab.0x3f.org
@@ -296,7 +296,7 @@ wiki.home {
 
     @log host log.lab.0x3f.org
     handle @log {
-        reverse_proxy grafana:3000
+        reverse_proxy pool1:3000
     }
 
     @hass host hass.lab.0x3f.org

@@ -7,3 +7,14 @@
 - name: Restart Promtail container
   command: docker restart promtail
   when: config_result.changed
+
+- name: Deploy Promtail rsyslog config
+  template:
+    src: promtail-rsyslog.yml.j2
+    dest: "{{ promtail_rsyslog_config_path }}"
+  register: rsyslog_config_result
+  when: promtail_rsyslog_config_path is defined
+
+- name: Restart Promtail rsyslog container
+  command: docker restart promtail-rsyslog
+  when: rsyslog_config_result.changed | default(false)
