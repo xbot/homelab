@@ -1,7 +1,7 @@
 {% raw %}
 rsshub.home {
     tls internal
-    reverse_proxy nas:1200
+    reverse_proxy pool1:1200
 }
 
 alist.home {
@@ -11,7 +11,12 @@ alist.home {
 
 linkding.home {
     tls internal
-    reverse_proxy linkding:9090
+    reverse_proxy pool1:9090
+}
+
+influxdb.home {
+    tls internal
+    reverse_proxy pool1:8086
 }
 
 hoarder.home {
@@ -51,7 +56,7 @@ heimdall.home {
 
 miniflux.home {
     tls internal
-    reverse_proxy miniflux:8080
+    reverse_proxy pool1:5600
 }
 
 kopia.home {
@@ -71,7 +76,7 @@ bt.home {
 
 bitwarden.home {
     tls internal
-    reverse_proxy nas:7777
+    reverse_proxy pool1:7777
 }
 
 calibre.home {
@@ -206,7 +211,7 @@ wiki.home {
 
     @rsshub host rsshub.lab.0x3f.org
     handle @rsshub {
-        reverse_proxy nas:1200
+        reverse_proxy pool1:1200
     }
 
     @alist host alist.lab.0x3f.org
@@ -216,7 +221,12 @@ wiki.home {
 
     @linkding host linkding.lab.0x3f.org
     handle @linkding {
-        reverse_proxy linkding:9090
+        reverse_proxy pool1:9090
+    }
+
+    @influxdb host influxdb.lab.0x3f.org
+    handle @influxdb {
+        reverse_proxy pool1:8086
     }
 
     @hoarder host hoarder.lab.0x3f.org
@@ -246,7 +256,7 @@ wiki.home {
 
     @miniflux host miniflux.lab.0x3f.org
     handle @miniflux {
-        reverse_proxy miniflux:8080
+        reverse_proxy pool1:5600
     }
 
     @kopia host kopia.lab.0x3f.org
@@ -267,7 +277,7 @@ wiki.home {
     @bitwarden host bitwarden.lab.0x3f.org
     handle @bitwarden {
         encode gzip
-        reverse_proxy nas:7777
+        reverse_proxy pool1:7777
     }
 
     @calibre host calibre.lab.0x3f.org
